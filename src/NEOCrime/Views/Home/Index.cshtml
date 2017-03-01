@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h3>Neo Form</h3>
+
+<form id="dateSubmit" method="post">
+    <input type="date" name="StartDate" id="StartDate" />
+    <input type="date" name="EndDate" id="EndDate" />
+    <button type="submit">Get NEO's</button>
+</form>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#dateSubmit").submit(function (event) {
+            event.preventDefault();
+            console.log($(this).serialize());
+            $.ajax({
+                url: "/Home/getNeo/",
+                type: "POST",
+                data: $(this).serialize(),
+                datatype: 'json',
+                success: function (result) {
+                    console.log(result);
+
+                }
+
+            }).error(function () { alert("NO!"); });
+        });
+
+    });
+</script>
