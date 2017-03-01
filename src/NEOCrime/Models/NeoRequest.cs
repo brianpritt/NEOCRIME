@@ -19,7 +19,7 @@ namespace NEOCrime.Models
             StartDate = start;
             EndDate = end;
         }
-        public List<NeoResult> GetNeoList()
+        public List<NeoResult.RootObject> GetNeoList()
         {
             RestClient client = new RestClient("https://api.nasa.gov/neo/rest/v1/feed");
             RestRequest request = new RestRequest($"?start_date={StartDate}&end_date={EndDate}&api_key={EnvironmentVariables.NasaKey}", Method.GET);
@@ -31,7 +31,8 @@ namespace NEOCrime.Models
             }).Wait();
             
             JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(response.Content);
-            List<NeoResult> newNeoList = JsonConvert.DeserializeObject<List<NeoResult>>(jsonResponse["near_earth_objects"][StartDate].ToString()); 
+            JObject jsonResponse1 = JsonConvert.DeserializeObject<JObject>(jsonResponse["near_earth_objects"].ToString());
+            List<NeoResult.RootObject> newNeoList = JsonConvert.DeserializeObject<List<NeoResult.RootObject>>(jsonResponse1[StartDate].ToString()); 
             Console.WriteLine(newNeoList[0]);
 
             return newNeoList;

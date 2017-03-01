@@ -3,21 +3,40 @@
 *@
 @{
 }
+
 <h3>Neo Form</h3>
 
 <form id="dateSubmit" method="post">
-    <input type="date" name="StartDate" id="StartDate" />
-    <input type="date" name="EndDate" id="EndDate" />
+    <input type="date" name="StartDate" id="StartDate" value="2017-03-01"/>
+    <input type="date" name="EndDate" id="EndDate" value="2017-03-01"/>
     <button type="submit">Get NEO's</button>
 </form>
-
-
+<div id="neoResult">
+    
+</div>
+<canvas id="myChart" width="400" height="400"></canvas>
 
 
 <script>
     $(document).ready(function () {
         $("#dateSubmit").submit(function (event) {
             event.preventDefault();
+            
+            function Data() {
+                this.datasets = [];
+            }
+            function Coords(x, y, r) {
+                this.x = x;
+                this.y = y;
+                this.r = r;
+            }
+            function Dataset(label) {
+                this.label = label;
+                this.data = [];
+            }
+
+            var data = new Data();
+
             console.log($(this).serialize());
             $.ajax({
                 url: "/Home/getNeo/",
@@ -26,11 +45,38 @@
                 datatype: 'json',
                 success: function (result) {
                     console.log(result);
+                    var htmlResult = "";
+                    for (var i = 0; i < result.length; i++) {
+                        htmlResult += "<div class='panel panel-default " + result[i].is_potentially_hazardous_asteroid + "'><p>Name: " + result[i].name + "</p><p>Is potentially hazardous: " + result[i].is_potentially_hazardous_asteroid + "<p>Missed us by only: " + result[i].close_approach_data[0].miss_distance.miles + " miles.</p></div>"
 
+                        data.datasets.push(new Dataset(result[i].name));
+                        data.datasets[i].data.push(
+                            new Coords(
+                                result[i].close_approach_data[0].miss_distance.miles,
+                                result[i].close_approach_data[0].miss_distance.miles,
+                                result[i].estimated_diameter.feet.estimated_diameter_max/100
+                            ));
+                    }
+                    console.log(data);
+                    var ctx = document.getElementById("myChart");
+                    var myChart = new Chart(ctx, {
+                        type: 'bubble',
+                        data: data,
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    $("#neoResult").html(htmlResult);
                 }
 
-            }).error(function () { alert("NO!"); });
+            }).error(function() { alert("NO!");});
         });
-
     });
+   
 </script>

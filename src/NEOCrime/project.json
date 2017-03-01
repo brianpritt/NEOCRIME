@@ -1,4 +1,4 @@
-﻿{
+{
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.1",
@@ -19,7 +19,8 @@
     "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
     "Microsoft.Extensions.Logging.Console": "1.0.0",
-    "RestSharp.NetCore": "105.2.3"
+    "RestSharp.NetCore": "105.2.3",
+    "Chart.js": "2.5.0"
   },
 
   "tools": {
