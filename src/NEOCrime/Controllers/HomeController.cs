@@ -21,7 +21,7 @@ namespace NEOCrime.Controllers
         public IActionResult getNeo(string StartDate, string EndDate)
         {
             NeoRequest newRequest = new Models.NeoRequest(StartDate, EndDate);
-            JObject jsonList = newRequest.GetNeoList();
+            List<NeoResult> jsonList = newRequest.GetNeoList();
 
             return Json(jsonList);
         }
