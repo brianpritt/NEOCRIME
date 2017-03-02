@@ -18,9 +18,9 @@ namespace NEOCrime.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult getNeo(string StartDate, string EndDate)
+        public IActionResult getNeo(string TargetDate)
         {
-            NeoRequest newRequest = new Models.NeoRequest(StartDate, EndDate);
+            NeoRequest newRequest = new Models.NeoRequest(TargetDate);
             List<NeoResult.RootObject> jsonList = newRequest.GetNeoList();
 
             return Json(jsonList);
