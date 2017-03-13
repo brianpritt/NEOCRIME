@@ -1,5 +1,6 @@
 # NEOCRIME
 .Net project using Nasas Near Earth Object API, and Charts.js
+Brian Pritt and Brad Copenhaver : Febuary 2017
 
 ## Setup/Installation Requirements
 
