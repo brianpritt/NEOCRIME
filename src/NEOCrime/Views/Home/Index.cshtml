@@ -5,12 +5,15 @@
 }
 
 <script src="~/js/index.js"></script>
-<h3>Neo Form</h3>
+<h3 class="centering">NEO Search</h3>
+<h5 class="centering">Select a date to see what Near Earth Objects were preset on that day</h5>
 
-<form id="dateSubmit" method="post">
-    <input type="date" name="TargetDate" id="TargetDate" value="2017-03-01"/>
-    <button type="submit">Get NEO's</button>
+<form id="dateSubmit" method="post" >
+    <input type="date" name="TargetDate" id="TargetDate" value="2017-03-01" class="form-control"/>
+    <button type="submit" class="btn btn-info">Get NEO's</button>
 </form>
-<canvas id="myChart" width="400" height="400"></canvas>
+<div class="theCanvas">
+<canvas id="myChart" width="300" height="300"></canvas>
+    </div>
 <div id="neoResult"></div>
 
